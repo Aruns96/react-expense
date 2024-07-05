@@ -20,8 +20,8 @@ const MainNavigation = (props) => {
           <Container>
             
             <Nav className="navbar navbar-primary bg-primary"  >
-              <NavLink className="me-3" style={({isActive})=>isActive?{color:"black"}:{color:"yellow"}} to='/signup'>Signup</NavLink>
-              <NavLink className="me-3" style={({isActive})=>isActive?{color:"black"}:{color:"yellow"}} to={url}>Login</NavLink>
+              <NavLink className="me-3"  to='/signup' style={({isActive})=>isActive?{color:"black"}:{color:"yellow"}}>Signup</NavLink>
+              <NavLink className="me-3"  to={url} style={({isActive})=>isActive?{color:"black"}:{color:"yellow"}}>Login</NavLink>
               
             </Nav>
           

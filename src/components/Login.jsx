@@ -71,7 +71,7 @@ const Login = () => {
               label="Your Email"
               className="mb-3"
             >
-          <Form.Control type='email' id='email' required ref={emailRef}/>
+          <Form.Control type='email' id='email'  ref={emailRef} required/>
           
       </FloatingLabel>
       <FloatingLabel
@@ -80,8 +80,8 @@ const Login = () => {
             >
           <Form.Control  type='password'
             id='password'
-            required
-            ref={passwordRef}/>
+            
+            ref={passwordRef} required/>
           
       </FloatingLabel>
         

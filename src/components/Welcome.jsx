@@ -16,7 +16,7 @@ const Welcome = () => {
           </Alert>
         </Col>
       </Row>
-      {/* Add your main content here */}
+     
     </Container>
   )
 }

@@ -1,13 +1,37 @@
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 
 const CompleteProfile = () => {
+    let userDetails = localStorage.getItem("user")
+    let userObj = JSON.parse(userDetails)
     
-  const [fullName, setFullName] = useState('');
-  const [profilePhotoURL, setProfilePhotoURL] = useState('');
+  const [fullName, setFullName] = useState(userObj.name);
+  const [profilePhotoURL, setProfilePhotoURL] = useState(userObj.ptourl);
 
+  useEffect(()=>{
+    async function fetchData(){
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.REACT_APP_WEB_API}`
+
+    let response = await fetch(url,{
+        method:"POST",
+              body:JSON.stringify({
+                idToken:localStorage.getItem("token"),
+               
+              }),
+              headers:{
+                "Content-Type":"application/json"
+              }
+    })
+    let data = await response.json()
+   // console.log(data.users[0].displayName,data.users[0].photoUrl)
+    localStorage.setItem("user",JSON.stringify({name:data.users[0].displayName,ptourl:data.users[0].photoUrl}))
+}
+fetchData()
+     
+  },[])
+  
   const handleSubmit = (e) => {
    
     
