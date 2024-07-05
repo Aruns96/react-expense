@@ -12,6 +12,7 @@ const CompleteProfile = () => {
 
   useEffect(()=>{
     async function fetchData(){
+        try{
     let url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${process.env.REACT_APP_WEB_API}`
 
     let response = await fetch(url,{
@@ -27,6 +28,9 @@ const CompleteProfile = () => {
     let data = await response.json()
    // console.log(data.users[0].displayName,data.users[0].photoUrl)
     localStorage.setItem("user",JSON.stringify({name:data.users[0].displayName,ptourl:data.users[0].photoUrl}))
+}catch(e){
+    console.log("error",e)
+}
 }
 fetchData()
      
