@@ -1,7 +1,7 @@
 import {  useRef} from 'react';
 
 import { Button, Container,FloatingLabel,Form } from 'react-bootstrap';
-
+import { useHistory } from 'react-router-dom';
 
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
   
   const emailRef = useRef()
   const passwordRef = useRef()
-  
+  const history = useHistory()
  
   
 
@@ -55,6 +55,7 @@ const Login = () => {
          localStorage.setItem("token",data.idToken)
         //localStorage.setItem("email",enteredEmail)
          alert("login success")
+         history.replace("/welcome")
       })
       .catch(e=> alert(e.message))
     
