@@ -8,10 +8,17 @@ import CompleteProfilePage from './pages/CompleteProfilePage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 
 function App() {
+  const isLogin = localStorage.getItem("token");
+  let url;
+  if(isLogin===null){
+    url="/signup"
+  }else{
+      url="/login"
+  }
   return (
     <Switch>
     <Route path="/" exact>
-      <Redirect to="/signup" />
+      <Redirect to={url} />
     </Route>
     <Route path="/signup">
       <SignupPage />
