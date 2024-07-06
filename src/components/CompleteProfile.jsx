@@ -1,9 +1,10 @@
 
 import React, { useState,useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-
+import { useHistory } from 'react-router-dom';
 
 const CompleteProfile = () => {
+    const history = useHistory();
     let userDetails = localStorage.getItem("user")
     let userObj = JSON.parse(userDetails)
     
@@ -74,7 +75,8 @@ fetchData()
           }).then(data=>{
            
            console.log("data",data)
-           console.log("user sucessfully updated")
+           alert("user sucessfully updated")
+           history.push("/welcome")
           })
           .catch(e=> alert(e.message))
         

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 
 const Welcome = () => {
-    
+    const history = useHistory()
     const verifyHandler = async ()=>{
         try{
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${process.env.REACT_APP_WEB_API}`
@@ -21,15 +21,20 @@ const Welcome = () => {
     })
     let data = await response.json()
     console.log(data)
+    alert("verification mail has been sent to your mail address")
 }catch(e){
     console.log("error",e)
 }
     }
+    const logOutHandler = ()=>{
+        localStorage.removeItem("token")
+        history.replace('/login')
+    }
   return (
     <Container fluid >
       <Row className="header-row">
-        <Col>
-          <h1 className="welcome-text">Welcome to Expense Tracker!!!</h1>
+        <Col xs="auto">
+          <h1 >Welcome to Expense Tracker!!!</h1>
         </Col>
         <Col xs="auto">
           <Alert variant="light" >
@@ -39,6 +44,9 @@ const Welcome = () => {
         </Col>
         <Col xs="auto">
            <Button className='btn btn-secondary btn-sm' onClick={verifyHandler}>Verify Email</Button>
+        </Col>
+        <Col xs="auto">
+           <Button className='btn btn-danger btn-sm' onClick={logOutHandler}>Logout</Button>
         </Col>
       </Row>
      
