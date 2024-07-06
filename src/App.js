@@ -5,6 +5,7 @@ import SignupPage from "./pages/SignupPage"
 import LoginPage from "./pages/LoginPage"
 import WelcomePage from './pages/WelcomePage';
 import CompleteProfilePage from './pages/CompleteProfilePage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
     </Route>
     <Route path="/completeprofile">
       <CompleteProfilePage />
+    </Route>
+    <Route path="/forgotpassword">
+      <ForgotPasswordPage />
     </Route>
     </Switch>
   );

@@ -1,7 +1,7 @@
 import {  useRef} from 'react';
 
 import { Button, Container,FloatingLabel,Form } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory ,Link} from 'react-router-dom';
 
 
 const Login = () => {
@@ -62,6 +62,7 @@ const Login = () => {
       emailRef.current.value = ""
       passwordRef.current.value = ""
   }
+  
   return (
     <>
       <h1 className="text-center mb-4">Login</h1>
@@ -92,6 +93,10 @@ const Login = () => {
           >
             Login
           </Button>
+          <Link to="/forgotpassword"
+          >
+            Forgot Passoword
+          </Link>
           </div>
         
       </Form>
