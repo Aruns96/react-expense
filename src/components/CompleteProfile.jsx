@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CompleteProfile = () => {
-  const history = useHistory();
-  let userDetails = localStorage.getItem("user");
-  let userObj = JSON.parse(userDetails);
+    const idToken = useSelector(state=>state.auth.idToken)
+    //console.log(idToken)
+    const history = useHistory();
+    
 
-  const [fullName, setFullName] = useState(userObj.name);
-  const [profilePhotoURL, setProfilePhotoURL] = useState(userObj.ptourl);
+  const [fullName, setFullName] = useState("");
+  const [profilePhotoURL, setProfilePhotoURL] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -18,7 +20,7 @@ const CompleteProfile = () => {
         let response = await fetch(url, {
           method: "POST",
           body: JSON.stringify({
-            idToken: localStorage.getItem("token"),
+            idToken: idToken,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -26,19 +28,16 @@ const CompleteProfile = () => {
         });
         let data = await response.json();
         // console.log(data.users[0].displayName,data.users[0].photoUrl)
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            name: data.users[0].displayName,
-            ptourl: data.users[0].photoUrl,
-          })
-        );
+        
+        setFullName(data.users[0].displayName);
+        setProfilePhotoURL(data.users[0].photoUrl);
+
       } catch (e) {
         console.log("error", e);
       }
     }
     fetchData();
-  }, []);
+  },[idToken]);
 
   const handleSubmit = (e) => {
     // console.log('Form submitted', { fullName, profilePhotoURL });
@@ -47,7 +46,7 @@ const CompleteProfile = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        idToken: localStorage.getItem("token"),
+        idToken: idToken,
         displayName: fullName,
         photoUrl: profilePhotoURL,
         returnSecureToken: true,

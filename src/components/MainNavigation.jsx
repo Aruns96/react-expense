@@ -1,10 +1,12 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MainNavigation = (props) => {
-  const isLogin = localStorage.getItem("token");
+    const isLogin = useSelector(state=>state.auth.isLoggedIn)
 
+     
   let url;
   if (isLogin === null) {
     url = "/signup";

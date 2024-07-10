@@ -1,8 +1,13 @@
 import React from "react";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
+import { authActions } from "../store/Auth";
 
 const Welcome = () => {
+    const idToken = useSelector(state=>state.auth.idToken)
+    //console.log(idToken)
+    const dipatch = useDispatch()
   const history = useHistory();
   const verifyHandler = async () => {
     try {
@@ -12,7 +17,7 @@ const Welcome = () => {
         method: "POST",
         body: JSON.stringify({
           requestType: "VERIFY_EMAIL",
-          idToken: localStorage.getItem("token"),
+          idToken: idToken,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +31,7 @@ const Welcome = () => {
     }
   };
   const logOutHandler = () => {
-    localStorage.removeItem("token");
+    dipatch(authActions.logOut())
     history.replace("/login");
   };
   return (

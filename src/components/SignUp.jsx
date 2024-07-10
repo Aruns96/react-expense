@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const SignUp = () => {
+    const history = useHistory()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -36,6 +38,7 @@ const SignUp = () => {
       .then((data) => {
         console.log("data", data);
         console.log("user sucessfully registered");
+        history.push('/login')
       })
       .catch((e) => alert(e.message));
 
