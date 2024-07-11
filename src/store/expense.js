@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const calculateTotalAmount = (expenses) => {
+    return expenses.reduce((sum, expense) => sum + (expense.amount), 0);
+  };
   
 const initalexpenseState = {
     expenses: [],
@@ -14,9 +17,8 @@ const expenseSlice=createSlice({
     initialState:initalexpenseState,
     reducers:{
         addExpenses(state,action){
-            
-             state.expenses=[...state.expenses,action.payload]
-             state.totalAmount=state.totalAmount+Number(action.payload[1].amount)
+            state.expenses=(action.payload)
+            state.totalAmount = calculateTotalAmount(state.expenses)
         },
         addDesc(state, action) {
           state.description = action.payload;
@@ -27,22 +29,19 @@ const expenseSlice=createSlice({
         addAmount(state, action) {
             state.amount = action.payload;
           },
-          setExpense(state,action){
-            state.expenses=action.payload
-            const total=state.expenses.reduce((acc,curr)=>acc+Number(curr[1].money),0)
-            state.totalAmount=total
-          },
+         
           
           editExpense(state,action){
-            const {payload}=action
-            const duplicateIndex=state.expenses.findIndex(item=>item[0]===payload.id)
-            state.totalAmount=state.totalAmount-Number(state.expenses[duplicateIndex][1].money)+Number(payload.money)
-            state.expenses[duplicateIndex][1]={...payload}
+            const index = state.expenses.findIndex(expense => expense.id === action.payload.id);
+            if (index !== -1) {
+              state.expenses[index] = action.payload;
+              state.totalAmount = calculateTotalAmount(state.expenses);
+              
+            }
           },
           removeExpense(state,action){
-            const filterList=state.expenses.filter(item=>item[0]!==action.payload.id)
-            state.expenses=filterList
-            state.totalAmount=state.totalAmount-Number(action.payload.money)
+            state.expenses = state.expenses.filter(expense => expense.id !== action.payload);
+            state.totalAmount = calculateTotalAmount(state.expenses);
           }
          
     }
