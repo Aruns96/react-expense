@@ -15,6 +15,7 @@ const ExpenseForm = () => {
   const [expenses, setExpenses] = useState([]);
   const [isEdit, setEdit] = useState(false);
   const [expenseId, setExpenseId] = useState(null);
+
  
 
   const userID = localStorage.getItem("userID");
@@ -167,6 +168,7 @@ const ExpenseForm = () => {
   const premiumButtonHandler = () => {
     // console.log("click premium")
     dispatch(themeActions.toogle());
+
   };
   return (
     <Container className="mt-0">
@@ -227,7 +229,7 @@ const ExpenseForm = () => {
         </button>
       )}
       <br />
-      <button className="mt-3 btn btn-outline-success">
+      {totalAmount > 10000 &&(<button className="mt-3 btn btn-outline-success">
       <CSVLink
         data={localStorage.getItem("allExpense")}
         filename="expense.csv"
@@ -237,6 +239,8 @@ const ExpenseForm = () => {
         Download Expenses
       </CSVLink>
       </button>
+      )
+      } 
       <h3 className="mt-5 mb-3">Expense List</h3>
       <Container className="mt-3">
         <Row>
