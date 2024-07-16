@@ -4,11 +4,23 @@ import '@testing-library/jest-dom'
 import ExpenseForm from "./ExpenseForm";
 
 
-test("render forgot pass",()=>{
+
+test("render expenses",async()=>{
+     window.fetch = jest.fn()
+     window.fetch.mockResolvedValueOnce({
+        json: async()=>[{
+            id: "1",
+            description: "test",
+            amount: 10,
+            category: "test category",
+        }]
+     })
+
+
     render(<ExpenseForm />)
 
     
 
-    const element = screen.getByText("Food",{exact:false})
-    expect(element).toBeInTheDocument()
+    const element = await screen.findAllByTestId(id="1")
+    expect(element).not.toHaveLength(0)
 })
